@@ -11,7 +11,7 @@ const UserItem = ({ user }) => {
         style={{ width: "60px" }}
       ></img>
       <h3>{user.login}</h3>
-      <div>
+      <div className="card text-center">
         <Link to={`/user/${user.login}`} className="btn btn-dark btn-sm my-1">
           More
         </Link>
