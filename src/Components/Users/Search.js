@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const Search = ({ searchUser, clearUser, clearUsers }) => {
+const Search = ({ searchUser, clearUser, clearUsers, setAlert }) => {
   const [text, setText] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (text.length === 0) {
+      setAlert({ msg: "Please add a name", type: "light" });
+      setTimeout(() => {
+        setAlert(null);
+      }, 5000);
+      return;
+    }
     searchUser(text);
     setText("");
   };
