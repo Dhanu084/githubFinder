@@ -1,12 +1,47 @@
-import React from 'react'
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-export const Search = () => {
-    return (
-        <div>
-            <form className="form">
-            <input type = "text" name="text" />
-            <button className="btn btn-dark btn-block"></button>
-            </form>
-        </div>
-    )
-}
+const Search = ({ searchUser, clearUser, clearUsers }) => {
+  const [text, setText] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchUser(text);
+    setText("");
+  };
+  const handleClear = (e) => {
+    e.preventDefault();
+    clearUsers();
+  };
+  return (
+    <div>
+      <form className="form" onSubmit={(e) => handleSubmit(e)}>
+        <input
+          type="text"
+          name="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button className="btn btn-dark btn-block">Search</button>
+        {clearUser && (
+          <button
+            className="btn btn-light btn-block"
+            onClick={(e) => handleClear(e)}
+          >
+            Clear
+          </button>
+        )}
+      </form>
+    </div>
+  );
+};
+
+Search.defaulProps = {
+  searchUser: {},
+  clearUser: false,
+};
+
+Search.propTypes = {
+  searchUser: PropTypes.func.isRequired,
+  clearUser: PropTypes.bool.isRequired,
+};
+export default Search;
