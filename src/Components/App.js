@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Layouts/Navbar";
 import Users from "./Users/Users";
+import { Search } from "./Users/Search";
 
 const baseUrl = "https://api.github.com/";
 
@@ -11,7 +12,9 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    console.log(`${baseUrl}/users`);
+    console.log(
+      `${baseUrl}/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
     axios.get(`${baseUrl}users`).then((data) => {
       console.log(data);
       setUsers(data.data);
@@ -25,7 +28,8 @@ const App = () => {
     <div className="App">
       <Navbar title="GitHubFinder" />
       <div className="container">
-        <Users users={users} />
+        <Search />
+        <Users users={users} loading={loading} />
       </div>
     </div>
   );
