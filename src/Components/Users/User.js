@@ -49,7 +49,7 @@ const User = (props) => {
               alt=""
               style={{ width: "150px" }}
             />
-            <h1>{user.login}</h1>
+            <h1>{user.name}</h1>
             <p>{user.location}</p>
           </div>
           <div>
@@ -91,9 +91,13 @@ const User = (props) => {
             Public Gists: {user.public_gists}
           </div>
         </div>
-        <div className="card text-center">
+        <div className="card">
           {user.repos &&
-            user.repos.map((repo) => <p id={repo.id}>{repo.name}</p>)}
+            user.repos.map((repo) => (
+              <div className="card" key={repo.id}>
+                <a href={repo.html_url}>{repo.name}</a>
+              </div>
+            ))}
         </div>
       </Fragment>
     );
