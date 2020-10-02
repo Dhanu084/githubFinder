@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
+import React, { useState, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./Layouts/Navbar";
 import Users from "./Users/Users";
@@ -7,6 +7,7 @@ import Alert from "./Layouts/Alert";
 import About from "./pages/About";
 import User from "./Users/User";
 import GithubState from "../Context/github/GithubState";
+import NotFound from "./Layouts/NotFound";
 
 const baseUrl = "https://api.github.com/";
 
@@ -32,11 +33,8 @@ const App = () => {
                 )}
               />
               <Route exact path="/about" component={About} />
-              <Route
-                exact
-                path="/user/:login"
-                render={(props) => <User {...props} baseUrl={baseUrl} />}
-              />
+              <Route exact path="/user/:login" component={User} />
+              <Route component={NotFound} />
             </Switch>
           </div>
         </div>
