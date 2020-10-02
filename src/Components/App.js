@@ -1,13 +1,11 @@
 import React, { useState, useEffect, Fragment, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 import Navbar from "./Layouts/Navbar";
 import Users from "./Users/Users";
 import Search from "./Users/Search";
 import Alert from "./Layouts/Alert";
 import About from "./pages/About";
 import User from "./Users/User";
-import GithubContext from "../Context/github/GithubContext";
 import GithubState from "../Context/github/GithubState";
 
 const baseUrl = "https://api.github.com/";

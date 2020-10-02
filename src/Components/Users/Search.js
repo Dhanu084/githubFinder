@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
 import GithubContext from "../../Context/github/GithubContext";
 
 const Search = ({ setAlert }) => {
