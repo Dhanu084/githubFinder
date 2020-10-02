@@ -13,14 +13,7 @@ import GithubState from "../Context/github/GithubState";
 const baseUrl = "https://api.github.com/";
 
 const App = () => {
-  const githubContext = useContext(GithubContext);
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-
-  const clearUsers = () => {
-    setUsers([]);
-  };
 
   return (
     <GithubState>
@@ -35,11 +28,7 @@ const App = () => {
                 path="/"
                 render={(props) => (
                   <Fragment>
-                    <Search
-                      clearUser={users.length > 0 ? true : false}
-                      clearUsers={clearUsers}
-                      setAlert={setAlert}
-                    />
+                    <Search setAlert={setAlert} />
                     <Users />
                   </Fragment>
                 )}

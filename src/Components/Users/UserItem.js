@@ -9,6 +9,7 @@ const UserItem = ({ user }) => {
         src={user.avatar_url}
         className="round-img"
         style={{ width: "60px" }}
+        alt="user dp"
       ></img>
       <h3>{user.login}</h3>
       <div className="card text-center">

@@ -1,32 +1,22 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useContext } from "react";
 import axios from "axios";
 import Spinner from "../Layouts/Spinner";
 import { Link } from "react-router-dom";
 import Users from "./Users";
-
+import Repos from "../Layouts/Repos";
+import GithubContext from "../../Context/github/GithubContext";
 const baseUrl = "https://api.github.com/";
+
 const User = (props) => {
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
+  const githubContext = useContext(GithubContext);
+  const { user, loading } = githubContext;
   useEffect(() => {
-    const user = props.match.params.login;
-    const url = `${baseUrl}users/${user}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
-    console.log(baseUrl);
-    setLoading(true);
-    axios.get(url).then((data) => {
-      console.log(data);
-      setUser(data.data);
-      setLoading(false);
-    });
-    const repoUrl = `${baseUrl}users/${user}/repos?per_page=5&sort=created:asc&?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
-    axios.get(repoUrl).then((data) => {
-      setUser((prevUser) => ({
-        ...prevUser,
-        repos: data.data,
-      }));
-    });
+    const username = props.match.params.login;
+
+    githubContext.getUser(username);
+    githubContext.getRepos(username);
   }, [props.match.params.login]);
-  console.log(user);
+
   if (loading) {
     return <Spinner />;
   } else {
@@ -90,14 +80,8 @@ const User = (props) => {
           <div className="badge badge-dark">
             Public Gists: {user.public_gists}
           </div>
-        </div>
-        <div className="card">
-          {user.repos &&
-            user.repos.map((repo) => (
-              <div className="card" key={repo.id}>
-                <a href={repo.html_url}>{repo.name}</a>
-              </div>
-            ))}
+
+          <Repos />
         </div>
       </Fragment>
     );
