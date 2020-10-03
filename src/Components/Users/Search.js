@@ -1,8 +1,11 @@
 import React, { useState, useContext } from "react";
 import GithubContext from "../../Context/github/GithubContext";
+import AlertContext from "../../Context/Alerts/AlertContext";
 
-const Search = ({ setAlert }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
+  const { setAlert, clearAlert } = alertContext;
   const { clearUsers, users } = githubContext;
   const [text, setText] = useState("");
   const handleSubmit = (e) => {
@@ -10,7 +13,7 @@ const Search = ({ setAlert }) => {
     if (text.length === 0) {
       setAlert({ msg: "Please add a name", type: "light" });
       setTimeout(() => {
-        setAlert(null);
+        clearAlert();
       }, 5000);
       return;
     }

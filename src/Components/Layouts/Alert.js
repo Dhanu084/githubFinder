@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useReducer, useContext } from "react";
 import PropTypes from "prop-types";
+import AlertContext from "../../Context/Alerts/AlertContext";
 
-const Alert = ({ alert }) => {
+const Alert = () => {
+  const alertContext = useContext(AlertContext);
+  const { alert } = alertContext;
   return (
     alert !== null && (
       <div className={`alert alert-${alert.type}`}>
